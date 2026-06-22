@@ -11,6 +11,9 @@ This file represents what I have learned about web programming. I love web progr
 - [Canvas](https://byu.instructure.com)
 - [MDN](https://developer.mozilla.org)
 
+All items in Directory
+- ls -al
+
 ## AWS
 
 Interesting things I have learned about AWS
