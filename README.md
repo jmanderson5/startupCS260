@@ -1,8 +1,8 @@
-# Your startup name here
+# Internship Command Center
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Internship Command Center is a tracking software for Computer Science students currently looking for internships and employment. The user may track current applications, interviews, LeetCode progress, and resume versions. Relevent data will be connected to eachother. Making the application and interview process seamless Internship Command Center allows for the tracking of notes, LeetCode probless, and resume versions related to a job or internship application.
 
 > [!NOTE]
 > This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
@@ -12,7 +12,11 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Computer Science students face an increasingly competitive internship and job market. Keeping track of applications, interview preparation, LeetCode practice, resumes, and company-specific notes can quickly become overwhelming.
+
+Internship Command Center helps students stay organized throughout the entire recruiting process. Through a single, easy-to-use dashboard, users can manage applications, store interview notes, track resume versions, and monitor LeetCode progress. Problems can be categorized, marked for future review, and linked directly to interview preparation efforts.
+
+Instead of digging through folders, spreadsheets, and scattered notes, students can keep everything related to their career search in one place. Internship Command Center helps aspiring software engineers spend less time organizing and more time preparing for success.
 
 ### Design
 
