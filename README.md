@@ -38,9 +38,14 @@ sequenceDiagram
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Secure login over HTTPS
+- User summary dashboard
+- Add job application data
+- Update status: saved, applied, OA, interview, affer, rejected
+- Add interview notes
+- Track LeetCode problem count by topic
+- Upload or link resume version
+- Live chat between application users
 
 ### Technologies
 
