@@ -39,7 +39,7 @@ sequenceDiagram
 ### Key features
 
 - Secure login over HTTPS
-- User summary dashboard
+- User summary dashboard persistently stored
 - Add job application data
 - Update status: saved, applied, OA, interview, affer, rejected
 - Add interview notes
@@ -51,12 +51,16 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Uses correct HTML structure for application. Three HTML pages. One for login, one for dashboard, and one for application description.
+- **CSS** - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
+- **React** - Provides login, data input, chat interface, display profile data, and use of REact for routing and components.
+- **Service** - Backend service with endpoints for:
+    - login
+    - retrieving user data
+    - inputing user data
+    - retrieving chat history
+- **DB/Login** - Store users, data, and chat history in database. REgister and login users. Credentials securely stored in database. Can't use program unless authenticated.
+- **WebSocket** - As each user uses the program other authenticated users receive updated data via broadcast.
 
 ## 🚀 Specification Deliverable
 
