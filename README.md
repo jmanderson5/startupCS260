@@ -28,8 +28,12 @@ Here is a sequence diagram that shows how to people would interact with the back
 
 ```mermaid
 sequenceDiagram
-    actor You
-    You->>Server: Replace this with your design
+    actor Jim
+    actor John
+    Jim->>Server: Input new application
+    Server -->>: Populate data page with user info
+    John->>Server: Sends message to Jim
+    Server -->>Jim: Jim receives message
 ```
 
 ### Key features
