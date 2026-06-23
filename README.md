@@ -2,7 +2,9 @@
 
 [My Notes](notes.md)
 
-Internship Command Center is a tracking software for Computer Science students currently looking for internships and employment. The user may track current applications, interviews, LeetCode progress, and resume versions. Relevent data will be connected to eachother. Making the application and interview process seamless Internship Command Center allows for the tracking of notes, LeetCode probless, and resume versions related to a job or internship application.
+Internship Command Center is a career-tracking platform designed for Computer Science students currently looking for internships and full-time employment. The application allows users to track current applications, interview progress, monitor LeetCode preparation, and maintain multiple resume versions throughout the recruiting process.
+
+The platform connects relevant data to eachother. Users may connect notes, LeetCode probless, and specific resume versions with individual job or internship applications. Internship Command Center streamlines the application and interview process by centralizing recruting-related information in a single location.
 
 > [!NOTE]
 > This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
