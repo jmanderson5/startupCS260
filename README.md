@@ -31,7 +31,7 @@ sequenceDiagram
     actor Jim
     actor John
     Jim->>Server: Input new application
-    Server -->>: Populate data page with user info
+    Server -->>Jim: Populate data page with user info
     John->>Server: Sends message to Jim
     Server -->>Jim: Jim receives message
 ```
