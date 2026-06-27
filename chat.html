@@ -17,7 +17,26 @@
             <a href="./index.html">About</a>
         </nav>
     </header>
-    <main></main>
+    <main>
+        <h3>Chat</h3>
+        <p>This is the chat section.</p>
+        <form id="messageForm">
+            <!--Select user to send message to-->
+            <label for="recipient">Recipient:</label>
+            <select id="recipient" name="recipient">
+                <option value="John Doe">John Doe</option>
+                <option value="Jane Smith">Jane Smith</option>
+                <option value="Bob Johnson">Bob Johnson</option>
+            </select>
+            <br />
+            <!--Enter message to send other program user-->
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" cols="50" 
+            placeholder="Type your message here..."></textarea>
+            <br />
+            <input type="submit" value="Send" />
+        </form>
+    </main>
     <footer>
         <hr />
         <span class="text-reset">Benjamin Anderson</span>
