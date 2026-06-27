@@ -88,16 +88,16 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **HTML pages** - I added html pages for each major program feature.
+- [x] **Proper HTML element usage** - I included proper HTML elemnts: head, body, header, main, footer, etc...
+- [x] **Links** - I added links to different parts of the website as required.
+- [x] **Text** - Relevent and descriptive text is placed accross the site.
+- [x] **3rd party API placeholder** - Two placeholders for API implementation are placed on profile.html.
+- [x] **Images** - Images are incerted and linked to as placeholders accross the site.
+- [x] **Login placeholder** - A login placeholder has been added to the site.
+- [x] **DB data placeholder** - chat history and profile information placeholders are a reflection of data being pulled from the database.
+- [x] **WebSocket placeholder** - The chat function of the site is to represent WebSocket capabilities.
 
 ## 🚀 CSS deliverable
 
