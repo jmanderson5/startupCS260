@@ -12,7 +12,7 @@
 </head>
 <body>
     <header id="content" class="header-content">
-        <h1 role="Application Name">Internship Command Center</h1>
+        <h1>Internship Command Center</h1>
         <nav>
             <a href="./login.html">Login</a>
             <a href="./profile.html">Profile</a>
@@ -26,18 +26,16 @@
         <!--main form of collecting data in html is the form tag-->
         <form action="./profile.html" method="get">
             <div>
-                <label for="username">Username</label>
-                <span for="username">@</span>
+                <label for="username">Username @</label>
                 <input id="username" placeholder="username">
             </div>
             <div>
-                <label for="password">Password</label>
-                <span for="password">🔒</span>
-                <input id="password" placeholder="password">
+                <label for="password">Password 🔒</label>
+                <input type="password" id="password" placeholder="password">
             </div>
 
-            <button type="login">Login</button>
-            <button type="create">Create</button>
+            <button type="submit">Login</button>
+            <button type="submit">Create</button>
         </form>
     </main>
     <footer>
