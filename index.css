@@ -29,15 +29,6 @@ header {
   padding-left: 0.5em;
 }
 
-main {
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-
-  font-size: 30px;
-}
-
 footer {
   flex: 0 2.5em;
 

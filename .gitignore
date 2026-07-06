@@ -15,6 +15,9 @@
 # Node.js (if you add it later)
 node_modules/
 
+# vite
+vite/
+
 # Build output
 dist/
 build/
