@@ -39,17 +39,16 @@ footer {
   flex: 0 2.5em;
 
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 0.5em;
+  width: 100%;
+
+  padding: 0.7em;
 
   font-size: 15px;
   background: hsl(180, 30%, 15%);
   color: white;
-  
-  padding-left: 0.5em;
 }
 
 footer a {
-  float: right;
+  margin-left: auto;
 }
