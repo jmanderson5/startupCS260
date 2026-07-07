@@ -18,6 +18,9 @@ node_modules/
 # vite
 vite/
 
+# vootstrap
+bootstrap/
+
 # Build output
 dist/
 build/
