@@ -2,8 +2,8 @@
 
 This file represents what I have learned about web programming. I love web programming.
 
-- [My startup](https://startup.cs260.click)
-- [My simon](https://simon.cs260.click)
+- [My startup](https://startup.benjaminanderson.me)
+- [My simon](https://simon.benjaminanderson.me)
 
 ## Helpful links
 
@@ -13,7 +13,7 @@ This file represents what I have learned about web programming. I love web progr
 
 ## Terminal
 
-All items in Directory
+All items in Directory including hidden .files
 - ls -al
 
 ## AWS
