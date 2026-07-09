@@ -16,7 +16,7 @@ body {
 
 header {
   font-size: 20px;
-  background: hsla(223, 76%, 26%, 0.776);
+  background: hsla(228, 93%, 23%, 0.814);
   color: white;
 
   padding: 0.5em;
@@ -27,7 +27,7 @@ main {
   display: flex;
   flex-direction: row;
 
-  /* padding: 0.5 em; */
+  padding: 0.5em;
 }
 
 footer {
