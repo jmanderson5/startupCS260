@@ -12,11 +12,6 @@ main {
 
   margin-bottom: 0.5em;
 
-  #profile-box {
-    margin-right: 0.5em;
-    width: 35vw;
-  }
-
   @media (orientation: portrait) {
     flex-direction: column;
     #profile-box {
@@ -35,22 +30,27 @@ main {
   }
 }
 
+#profile-box {
+    margin-right: 0.5em;
+    width: 30%;
+  }
+
 .card {
-  width: 35vw;
+  width: 17%;
   margin-right: 0.5em;
 }
 
 .accordion {
-  width: 77vw;
+  width: 85%;
   margin-right: 0.5em;
 }
 
 .schedule {
-  width: 80vw;
+  width: 50%;
   margin-right: 0.5em;
 }
 
 .github {
-  width: 40vw;
+  width: 50%;
   margin-right: 0.5em;
 }
