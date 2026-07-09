@@ -44,7 +44,6 @@
     <main>
         <form id="messageForm">
             <!--Select user to send message to-->
-            <label for="recipient">Recipient:</label>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="recipientDropdown" 
                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,7 +59,7 @@
             <textarea id="message" name="message" rows="4" cols="50" 
             placeholder="Type your message here..."></textarea>
             <br />
-            <input type="submit" value="Send" />
+            <button type="button" class="btn btn-outline-primary me-2">Send</button>
         </form>
 
         <div id="chat-receipts" class="chat-receipts">
