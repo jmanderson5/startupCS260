@@ -17,3 +17,13 @@ main {
     width: 30vw;
   }
 }
+
+.card {
+  width: 20vw;
+  margin-right: 0.5em;
+}
+
+.accordion {
+  width: 80vw;
+  margin-right: 0.5em;
+}
