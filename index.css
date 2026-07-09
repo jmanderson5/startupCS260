@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  font-size: 20px;
+  font-size: 1.5em;
   background: hsla(228, 93%, 23%, 0.814);
   color: white;
 
@@ -31,7 +31,7 @@ main {
 }
 
 .accordion {
-  width: 42em;
+  width: 60vw;
 
   margin-right: 0.5em;
 }
