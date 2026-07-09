@@ -29,12 +29,18 @@ header {
   }
 }
 
+@media (orientation: landscape) {
+  .card {
+    width: 35vw;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+  }
+}
+
 main {
   flex: 1;
   display: flex;
   flex-direction: row;
-
-  padding: 0.5em;
 
   @media (orientation: portrait) {
     flex-direction: column;
@@ -46,14 +52,9 @@ main {
 }
 
 .accordion {
-  width: 60%;
+  width: 99%;
 
-  margin-right: 0.5em;
-}
-
-.card {
-  width: 100%;
-  margin-right: 0.5em;
+  margin: 0.5em;
 }
 
 footer {
