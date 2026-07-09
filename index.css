@@ -30,6 +30,12 @@ main {
   padding: 0.5em;
 }
 
+.accordion {
+  width: 42em;
+
+  margin-right: 0.5em;
+}
+
 footer {
   flex: 0 2.5em;
 
