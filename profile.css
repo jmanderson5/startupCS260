@@ -14,17 +14,34 @@ main {
 
   #profile-box {
     margin-right: 0.5em;
-    width: 30vw;
+    width: 35vw;
+  }
+
+  @media (orientation: portrait) {
+    flex-direction: column;
+    #profile-box {
+      margin-right: 0;
+      margin-bottom: 0.5em;
+      width: 100%;
+    }
+    .card {
+      width: 100%;
+      margin-bottom: 0.5em;
+    }
+    .accordion {
+      width: 100%;
+      margin-bottom: 0.5em;
+    }
   }
 }
 
 .card {
-  width: 20vw;
+  width: 35vw;
   margin-right: 0.5em;
 }
 
 .accordion {
-  width: 80vw;
+  width: 77vw;
   margin-right: 0.5em;
 }
 
