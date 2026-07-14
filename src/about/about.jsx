@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function Chat() {
+export function About() {
   return (
     <main className="container-fluid bg-secondary text-center">
-      <div>Chat displayed here</div>
+      <div>About displayed here</div>
     </main>
   );
 }
