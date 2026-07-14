@@ -1,0 +1,64 @@
+.about-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 32%);
+  align-items: start;
+  gap: 1rem;
+
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Accordion */
+
+.about-page .content-box {
+  width: 100%;
+  min-width: 0;
+}
+
+.about-page .accordion {
+  width: 100%;
+  margin: 0;
+}
+
+/* Yoda card */
+
+.about-page .yoda-panel {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.about-page .yoda-panel .card {
+  width: 100%;
+  margin: 0;
+}
+
+.about-page .yoda-panel .card-img-top {
+  display: block;
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-page .yoda-panel .card-body {
+  width: 100%;
+}
+
+/* Stack when the available width becomes too small */
+
+@media (max-width: 800px) {
+  .about-page {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page .yoda-panel {
+    width: 100%;
+  }
+
+  .about-page .yoda-panel .card-img-top {
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+  }
+}

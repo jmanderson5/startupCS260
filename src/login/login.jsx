@@ -14,11 +14,11 @@ export function Login() {
     <main>
         <form onSubmit={handleSubmit} method="get">
             <div className="input-group mb-3">
-                <label className="input-group-text" for="username">Username @</label>
+                <label className="input-group-text" htmlFor="username">Username @</label>
                 <input className="form-control" id="username" placeholder="username" />
             </div>
             <div className="input-group mb-3">
-                <label className="input-group-text" for="password">Password 🔒</label>
+                <label className="input-group-text" htmlFor="password">Password 🔒</label>
                 <input className="form-control" type="password" id="password" placeholder="password" />
             </div>
 
