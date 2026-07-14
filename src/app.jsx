@@ -13,14 +13,14 @@ export default function App() {
   <BrowserRouter>
     <div className="app">
         <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <NavLink to="" className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <NavLink to="/" className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                 <h1>Internship Command Center</h1>
             </NavLink>
 
             <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><NavLink to="" className="nav-link px-2 link-secondary">Home</NavLink></li>
-                <li><NavLink to="chat" className="nav-link px-2 link-dark">Chat</NavLink></li>
-                <li><NavLink to="profile" className="nav-link px-2 link-dark">Profile</NavLink></li>
+                <li><NavLink to="/" className="nav-link px-2 link-secondary">Home</NavLink></li>
+                <li><NavLink to="/chat" className="nav-link px-2 link-dark">Chat</NavLink></li>
+                <li><NavLink to="/profile" className="nav-link px-2 link-dark">Profile</NavLink></li>
             </ul>
 
             <form className="col-md-3 text-end" method="get" action="login">
@@ -30,7 +30,7 @@ export default function App() {
         </header>
 
         <Routes>
-            <Route path='/' element={<About />} exact />
+            <Route path='/' element={<About />} />
             <Route path='/chat' element={<Chat />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/login' element={<Login />} />
@@ -47,5 +47,5 @@ export default function App() {
 }
 
 function NotFound() {
-  return <main>404: Return to sender. Address unknown.</main>;
+  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
 }
