@@ -1,4 +1,5 @@
 import React from 'react';
+import './about.css';
 
 export function About() {
   return (
@@ -44,7 +45,7 @@ export function About() {
             </div>
         </article>
 
-        <aside>
+        <aside className="yoda-panel">
             <div className="card">
                 <img src="./Yoda.jpeg" className="img-fluid rounded-start h-100" alt="Yoda"/>
                     <title>Yoda Quote</title>
