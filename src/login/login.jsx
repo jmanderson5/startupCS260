@@ -1,10 +1,18 @@
 import React from 'react';
 import './login.css';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate('/profile');
+  };
+
   return (
     <main>
-        <form action="./profile.html" method="get">
+        <form onSubmit={handleSubmit} method="get">
             <div className="input-group mb-3">
                 <label className="input-group-text" for="username">Username @</label>
                 <input className="form-control" id="username" placeholder="username" />

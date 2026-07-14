@@ -1,7 +1,15 @@
 import React from 'react';
 import './about.css';
+import { useNavigate } from 'react-router-dom';
 
 export function About() {
+  const navigate = useNavigate();
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    navigate('/profile');
+  }
+
   return (
     <main className="about-page">
         <article id="content-box" className="content-box">
@@ -55,7 +63,9 @@ export function About() {
                     <h5 className="card-title">Master Yoda</h5>
                     <p className="card-text">"Fear is the path to the dark side. Fear leads to anger, anger 
                     leads to hate, hate leads to suffering."</p>
-                    <a href="./profile.html" className="btn btn-primary">Be Inspired</a>
+                    <form onSubmit={handleSubmit} method="get">
+                      <button type="submit" className="btn btn-primary">Be Inspired</button>
+                    </form>
                 </div>
             </div>
         </aside>
