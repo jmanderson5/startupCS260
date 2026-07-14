@@ -2,13 +2,6 @@ import React from 'react';
 import './profile.css';
 
 export function Profile() {
-    const navigate = useNavigate();
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate('/profile');
-    };
-
   return (
     <main>
         <div className="content-box">
@@ -98,7 +91,7 @@ export function Profile() {
                 </section>
                 <form id="Connect" className="Connect" action="./chat.html" method="get">
                     <h3>Connect</h3>
-                    <p>Connect with other users <button onClick={handleSubmit} type="button" 
+                    <p>Connect with other users <button type="button" 
                         className="btn btn-outline-info">Do It</button></p>
                 </form>
             </div>    
