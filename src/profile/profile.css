@@ -8,12 +8,46 @@
 }
 
 .content {
-  display: flex;
-  flex-direction: row;
+  grid-template-columns: minmax(250px, 30%) minmax(0, 1fr);
+  display: grid;
+  align-items: start;
+  justify-content: center;
+  
+  background: #E8EDF3;
+  height: 100%;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2em;
+}
 
-  margin-bottom: 0.5em;
+#profile-box {
+  margin-right: 0.5em;
+  width: 100%;
+}
 
-  @media (orientation: portrait) and (max-width: 768px) {
+.card {
+  width: 100%;
+  margin-right: 0.5em;
+}
+
+.accordion {
+  width: 100%;
+  margin-right: 0.5em;
+}
+
+.schedule {
+  width: 100%;
+  margin-right: 0.5em;
+}
+
+.github {
+  width: 100%;
+  margin-right: 0.5em;
+}
+
+@media (max-width: 768px) {
+ .content {
+    grid-template-columns: minmax(0, 1fr);
     flex-direction: column;
     #profile-box {
       margin-right: 0;
@@ -28,30 +62,5 @@
       width: 100%;
       margin-bottom: 0.5em;
     }
-  }
-}
-
-#profile-box {
-  margin-right: 0.5em;
-  width: 30%;
-}
-
-.card {
-  width: 17%;
-  margin-right: 0.5em;
-}
-
-.accordion {
-  width: 85%;
-  margin-right: 0.5em;
-}
-
-.schedule {
-  width: 50%;
-  margin-right: 0.5em;
-}
-
-.github {
-  width: 50%;
-  margin-right: 0.5em;
+  } 
 }
