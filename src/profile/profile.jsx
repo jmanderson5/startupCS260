@@ -3,8 +3,8 @@ import './profile.css';
 
 export function Profile() {
   return (
-    <main>
-        <div className="content-box">
+    <main className="profile-page">
+        <div className="content">
             <div className="card">
                 <img src="./BenjaminAndersonArmy.jpeg" className="card-img-top" alt="Benjamin Anderson" />
                 <title>Profile Summary</title>
@@ -83,7 +83,7 @@ export function Profile() {
             </section>
         </div>
 
-        <div className="content-box">
+        <div className="content">
             <div id="profile-box">
                 <section id="LeetCode" className="LeetCode">
                     <h3>LeetCode Progress</h3>

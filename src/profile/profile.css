@@ -1,18 +1,19 @@
-main {
-  flex: 1;
+.profile-page {
   display: flex;
   flex-direction: column;
 
-  padding: 0.5em;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.content-box {
+.content {
   display: flex;
   flex-direction: row;
 
   margin-bottom: 0.5em;
 
-  @media (orientation: portrait) {
+  @media (orientation: portrait) and (max-width: 768px) {
     flex-direction: column;
     #profile-box {
       margin-right: 0;
@@ -31,9 +32,9 @@ main {
 }
 
 #profile-box {
-    margin-right: 0.5em;
-    width: 30%;
-  }
+  margin-right: 0.5em;
+  width: 30%;
+}
 
 .card {
   width: 17%;

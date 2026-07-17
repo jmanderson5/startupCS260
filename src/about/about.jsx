@@ -12,7 +12,7 @@ export function About() {
 
   return (
     <main className="about-page">
-        <article id="content-box" className="content-box">
+        <div className="content-box">
             <div className="accordion">
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="headingOne">
@@ -51,24 +51,24 @@ export function About() {
                     </div>
                 </div>
             </div>
-        </article>
 
-        <aside className="yoda-panel">
-            <div className="card">
-                <img src="./Yoda.jpeg" className="img-fluid rounded-start h-100" alt="Yoda"/>
-                    <title>Yoda Quote</title>
-                    <rect width="100%" height="100%" fill="#20c997"></rect>
+            <aside className="yoda-panel">
+                <div className="card">
+                    <img src="./Yoda.jpeg" className="img-fluid rounded-start h-100" alt="Yoda"/>
+                        <title>Yoda Quote</title>
+                        <rect width="100%" height="100%" fill="#20c997"></rect>
 
-                <div className="card-body">
-                    <h5 className="card-title">Master Yoda</h5>
-                    <p className="card-text">"Fear is the path to the dark side. Fear leads to anger, anger 
-                    leads to hate, hate leads to suffering."</p>
-                    <form onSubmit={handleSubmit} method="get">
-                      <button type="submit" className="btn btn-primary">Be Inspired</button>
-                    </form>
+                    <div className="card-body">
+                        <h5 className="card-title">Master Yoda</h5>
+                        <p className="card-text">"Fear is the path to the dark side. Fear leads to anger, anger 
+                        leads to hate, hate leads to suffering."</p>
+                        <form onSubmit={handleSubmit} method="get">
+                        <button type="submit" className="btn btn-primary">Be Inspired</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </aside>
+            </aside>
+        </div>    
     </main>
   );
 }

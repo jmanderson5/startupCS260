@@ -29,32 +29,8 @@ header {
   }
 }
 
-@media (orientation: landscape) {
-  .card {
-    width: 35vw;
-    margin-right: 0.5em;
-    margin-left: 0.5em;
-  }
-}
-
 main {
-  flex: 1;
-  display: flex;
-  flex-direction: row;
-
-  @media (orientation: portrait) {
-    flex-direction: column;
-    .accordion {
-      width: 100%;
-      margin-bottom: 0.5em;
-    }
-  }
-}
-
-.accordion {
-  width: 99%;
-
-  margin: 0.5em;
+  background: #F5F7FA;
 }
 
 footer {
