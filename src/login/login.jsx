@@ -22,7 +22,7 @@ export function Login() {
                 <input className="form-control" type="password" id="password" placeholder="password" />
             </div>
 
-            <button className="btn btn-primary" type="submit">Login</button>
+            <button className="btn btn-primary me-2" type="submit">Login</button>
             <button className="btn btn-secondary" type="submit">Create</button>
         </form>
     </main>

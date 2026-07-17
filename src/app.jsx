@@ -23,10 +23,15 @@ export default function App() {
                 <li><NavLink to="/profile" className="nav-link px-2 link-dark">Profile</NavLink></li>
             </ul>
 
-            <form className="col-md-3 text-end" method="get" action="login">
-                <button type="submit" className="btn btn-primary">Login</button>
-                <button type="submit" className="btn btn-secondary">Sign-up</button>
-            </form>
+            <div className="col-md-3 text-end">
+                <NavLink to="/login" className="btn btn-primary me-2">
+                    Login
+                </NavLink>
+
+                <NavLink to="/login" className="btn btn-secondary">
+                    Sign Up
+                </NavLink>
+            </div>
         </header>
 
         <Routes>
