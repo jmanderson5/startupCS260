@@ -19,9 +19,15 @@ export default function App() {
             </NavLink>
 
             <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><NavLink to="/" className="nav-link px-2 link-secondary">Home</NavLink></li>
-                <li><NavLink to="/chat" className="nav-link px-2 link-dark">Chat</NavLink></li>
-                <li><NavLink to="/profile" className="nav-link px-2 link-dark">Profile</NavLink></li>
+                <li><NavLink to="/" end className={({ isActive }) =>
+                    `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
+                }>Home</NavLink></li>
+                <li><NavLink to="/chat" className={({ isActive }) =>
+                    `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
+                }>Chat</NavLink></li>
+                <li><NavLink to="/profile" className={({ isActive }) =>
+                    `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
+                }>Profile</NavLink></li>
             </ul>
 
             <div className="col-md-3 text-end">
