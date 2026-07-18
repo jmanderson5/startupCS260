@@ -161,13 +161,7 @@ export function Profile() {
                             className="btn btn-outline-info">Do It</a>
                 </section>
             </div>    
-            <section id="schedule" className="schedule">
-                <section className="profile-calendar">
-                    <h3>Calendar</h3>
-
-                    <CalendarGraphic calendar={calendar} />
-                </section>
-            </section>
+                <CalendarGraphic calendar={calendar} />
         </div>
     </main>
   );
