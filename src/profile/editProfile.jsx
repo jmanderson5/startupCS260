@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './profile.css';
-import { CalendarGraphic } from './calendarGraphic';
 
 export function EditProfile({
   profile,

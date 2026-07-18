@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './profile.css';
 import { useNavigate } from 'react-router-dom';
+import { CalendarGraphic } from './calendarGraphic';
 
 export function Profile() {
     const navigate = useNavigate();
@@ -153,21 +154,19 @@ export function Profile() {
                     <button onClick={() => navigate('/chat')} type="button" 
                         className="btn btn-outline-info">Do It</button>
                 </form>
+                <section id="leetCode" className="github">
+                    <h3>LeetCode</h3>
+                    <p>View your LeetCode practice problems here</p>
+                    <a href="https://leetcode.com/problemset/" type="button" 
+                            className="btn btn-outline-info">Do It</a>
+                </section>
             </div>    
             <section id="schedule" className="schedule">
-                <h3>Schedule</h3>
-                <p>View your upcoming interviews and deadlines</p>
                 <section className="profile-calendar">
                     <h3>Calendar</h3>
 
                     <CalendarGraphic calendar={calendar} />
                 </section>
-            </section>
-            <section id="github" className="github">
-                <h3>LeetCode</h3>
-                <p>View your LeetCode practice problems here</p>
-                <a href="https://leetcode.com/problemset/" type="button" 
-                        className="btn btn-outline-info">Do It</a>
             </section>
         </div>
     </main>
