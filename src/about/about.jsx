@@ -7,7 +7,7 @@ export function About() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    navigate('/profile');
+    navigate('/login');
   }
 
   return (

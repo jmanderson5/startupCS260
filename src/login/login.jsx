@@ -1,30 +1,26 @@
 import React from 'react';
-import './login.css';
-import { useNavigate } from 'react-router-dom';
 
-export function Login() {
-  const navigate = useNavigate();
+import { Unauthenticated } from './unauthenticated';
+import { Authenticated } from './authenticated';
+import { AuthState } from './authState';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate('/profile');
-  };
-
+export function Login({ userName, authState, onAuthChange }) {
   return (
     <main>
-        <form onSubmit={handleSubmit} method="get">
-            <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="username">Username @</label>
-                <input className="form-control" id="username" placeholder="username" />
-            </div>
-            <div className="input-group mb-3">
-                <label className="input-group-text" htmlFor="password">Password 🔒</label>
-                <input className="form-control" type="password" id="password" placeholder="password" />
-            </div>
-
-            <button className="btn btn-primary me-2" type="submit">Login</button>
-            <button className="btn btn-secondary" type="submit">Create</button>
-        </form>
+      <div>
+        {authState !== AuthState.Unknown && <h1>Welcome to Internship Command Center</h1>}
+        {authState === AuthState.Authenticated && (
+          <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+        )}
+        {authState === AuthState.Unauthenticated && (
+          <Unauthenticated
+            userName={userName}
+            onLogin={(loginUserName) => {
+              onAuthChange(loginUserName, AuthState.Authenticated);
+            }}
+          />
+        )}
+      </div>
     </main>
   );
 }

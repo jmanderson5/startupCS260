@@ -32,16 +32,6 @@ export default function App() {
                     `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
                 }>Login</NavLink></li>
             </ul>
-
-            {/* <div className="col-md-3 text-end">
-                <NavLink to="/login" className="btn btn-primary me-2">
-                    Login
-                </NavLink>
-
-                <NavLink to="/login" className="btn btn-secondary">
-                    Sign Up
-                </NavLink>
-            </div> */}
         </header>
 
         <Routes>
