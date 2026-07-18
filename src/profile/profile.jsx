@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './profile.css';
 
-export function UserPage() {
+export function Profile() {
     
     const [applications] = useState([
     {
