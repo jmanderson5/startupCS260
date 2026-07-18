@@ -53,8 +53,8 @@ export default function App() {
                             setAuthState(authState);
                             setUserName(userName);
 
-                            if (newUserName) {
-                                localStorage.setItem('userName', UserName);
+                            if (userName) {
+                                localStorage.setItem('userName', userName);
                             } else {
                                 localStorage.removeItem('userName');
                             }
