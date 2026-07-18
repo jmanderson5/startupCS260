@@ -12,6 +12,7 @@
   display: grid;
   align-items: start;
   justify-content: center;
+  gap: 2em;
   
   background: #E8EDF3;
   height: 100%;

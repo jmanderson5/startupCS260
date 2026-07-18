@@ -33,7 +33,7 @@ export function Profile() {
                                 <a href="benjamin_generated_resume.jpg">View Interview Notes</a>
                             </nav>
                             <p>Offer Status: Bamboozled</p>
-                        </div>    
+                        </div>
                         <ul>
                             <li>Applied: 01/01/2024</li>
                         </ul></div>
