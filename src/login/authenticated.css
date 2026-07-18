@@ -1,0 +1,16 @@
+.authenticated-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.5em;
+}
+
+.playerName {
+    color: hsla(228, 93%, 23%, 0.814);
+    font-size: 1.5em;
+    padding: 0.5em;
+}

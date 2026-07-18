@@ -10,11 +10,13 @@ export function Unauthenticated(props) {
   async function loginUser() {
     localStorage.setItem('userName', userName);
     props.onLogin(userName);
+    navigate('/profile');
   }
 
   async function createUser() {
     localStorage.setItem('userName', userName);
     props.onLogin(userName);
+    navigate('/profile');
   }
 
   return (
