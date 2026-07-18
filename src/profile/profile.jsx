@@ -6,7 +6,6 @@ export function Profile() {
     <main className="profile-page">
         <div className="content">
             <div className="card">
-                <img src="./BenjaminAndersonArmy.jpeg" className="card-img-top" alt="Benjamin Anderson" />
                 <title>Profile Summary</title>
                 <rect width="100%" height="100%" fill="#20c997"></rect>
 

@@ -147,7 +147,6 @@
     flex-direction: column;
 
     width: 100%;
-    min-height: 320px;
 
     border-radius: 12px;
     overflow: hidden;
@@ -175,7 +174,8 @@
 
 .receipts-list li {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
 
     background: #323232;
     padding: .8rem 1rem;
@@ -184,6 +184,11 @@
     border-left: 4px solid #3b82f6;
 
     transition: .2s;
+}
+
+.receipts-list li div {
+  display: flex;
+  flex-direction: column;
 }
 
 .receipts-list li:hover {
@@ -199,6 +204,13 @@
 
 .message {
     color: #ececec;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.sent-time {
+    color: #ececec;
+    font-size: x-small;
     line-height: 1.4;
     word-wrap: break-word;
 }
