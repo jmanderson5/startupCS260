@@ -13,7 +13,7 @@ export default function App() {
   return (
   <BrowserRouter>
     <div className="app">
-        <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 border-bottom">
+        <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
             <NavLink to="/" className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
                 <h1>Internship Command Center</h1>
             </NavLink>
@@ -28,9 +28,12 @@ export default function App() {
                 <li><NavLink to="/profile" className={({ isActive }) =>
                     `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
                 }>Profile</NavLink></li>
+                <li><NavLink to="/login" className={({ isActive }) =>
+                    `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
+                }>Login</NavLink></li>
             </ul>
 
-            <div className="col-md-3 text-end">
+            {/* <div className="col-md-3 text-end">
                 <NavLink to="/login" className="btn btn-primary me-2">
                     Login
                 </NavLink>
@@ -38,7 +41,7 @@ export default function App() {
                 <NavLink to="/login" className="btn btn-secondary">
                     Sign Up
                 </NavLink>
-            </div>
+            </div> */}
         </header>
 
         <Routes>
