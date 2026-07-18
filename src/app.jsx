@@ -43,7 +43,25 @@ export default function App() {
             <Route path='/' element={<About />} />
             <Route path='/chat' element={<Chat />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/login' element={<Login />} />
+            <Route 
+                path='/login' 
+                element={
+                    <Login
+                        userName={userName}
+                        authState={authState}
+                        onAuthChange={(userName, authState) => {
+                            setAuthState(authState);
+                            setUserName(userName);
+
+                            if (newUserName) {
+                                localStorage.setItem('userName', newUserName);
+                            } else {
+                                localStorage.removeItem('userName');
+                            }
+                        }}
+                    />
+                } 
+            />
             <Route path='*' element={<NotFound />} />
         </Routes>
         
