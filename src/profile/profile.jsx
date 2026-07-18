@@ -3,7 +3,7 @@ import './profile.css';
 import { useNavigate } from 'react-router-dom';
 
 export function Profile() {
-    const navigaate = useNavigate();
+    const navigate = useNavigate();
     
     const [applications] = useState([
     {
@@ -31,6 +31,49 @@ export function Profile() {
       notes: 'Finish cover letter before applying.',
     },
   ]);
+
+  const calendar = {
+    kind: 'calendar#calendar',
+    etag: '"internship-calendar-v1"',
+    id: 'internship-calendar',
+    summary: 'Internship Calendar',
+
+    description:
+        'Interviews, application deadlines, career fairs, and internship events.',
+
+    location: 'Provo, Utah',
+    timeZone: 'America/Denver',
+    dataOwner: 'Benjamin Anderson',
+
+    conferenceProperties: {
+        allowedConferenceSolutionTypes: [
+        'hangoutsMeet',
+        'zoom',
+        ],
+    },
+
+    labelProperties: {
+        eventLabels: [
+        {
+            id: 'interview',
+            backgroundColor: '#0d6efd',
+            name: 'Interview',
+        },
+        {
+            id: 'deadline',
+            backgroundColor: '#dc3545',
+            name: 'Deadline',
+        },
+        {
+            id: 'career-fair',
+            backgroundColor: '#198754',
+            name: 'Career Fair',
+        },
+        ],
+    },
+
+    autoAcceptInvitations: false,
+    };
 
   return (
     <main className="profile-page">
@@ -104,25 +147,27 @@ export function Profile() {
 
         <div className="content">
             <div id="profile-box">
-                <section id="LeetCode" className="LeetCode">
-                    <h3>LeetCode Progress</h3>
-                    <p>Track your LeetCode progress <button type="button" className="btn btn-outline-info">Do It</button></p>
-                </section>
                 <form id="Connect" className="Connect" action="./chat.html" method="get">
                     <h3>Connect</h3>
-                    <p>Connect with other users <button type="button" 
-                        className="btn btn-outline-info">Do It</button></p>
+                    <p>Connect with other users </p>
+                    <button onClick={() => navigate('/chat')} type="button" 
+                        className="btn btn-outline-info">Do It</button>
                 </form>
             </div>    
             <section id="schedule" className="schedule">
                 <h3>Schedule</h3>
                 <p>View your upcoming interviews and deadlines</p>
-                <p>Google API placeholder</p>
+                <section className="profile-calendar">
+                    <h3>Calendar</h3>
+
+                    <CalendarGraphic calendar={calendar} />
+                </section>
             </section>
             <section id="github" className="github">
-                <h3>GitHub</h3>
-                <p>View your GitHub repositories and contributions</p>
-                <p>GitHub API placeholder</p>
+                <h3>LeetCode</h3>
+                <p>View your LeetCode practice problems here</p>
+                <a href="https://leetcode.com/problemset/" type="button" 
+                        className="btn btn-outline-info">Do It</a>
             </section>
         </div>
     </main>
