@@ -8,6 +8,7 @@ export function Chat() {
         const savedMessages = localStorage.getItem('messages');
         return savedMessages ? JSON.parse(savedMessages) : [];
     });
+    // This will be replaced with WebSocket messages
     const [messagesReceived] = useState([
         {
             id: 1,
@@ -27,7 +28,7 @@ export function Chat() {
             text: 'I have a question about the code.',
             sentAt: '7/18/2026, 12:56:05 PM',
         },
-        ]);
+    ]);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -52,7 +53,7 @@ export function Chat() {
     }
 
     useEffect(() => {
-        localStorage.setItem('message', JSON.stringify(messages));
+        localStorage.setItem('messages', JSON.stringify(messages));
     }, [messages]);
 
     return (
@@ -141,7 +142,7 @@ export function Chat() {
                         messages.map((sentMessage) => (
                             <li key={sentMessage.id}>
                                 <div>
-                                    <span className="sender">{sentMessage.recipient}</span>
+                                    <span className="sender">To: {sentMessage.recipient}</span>
                                     <span className="message">{sentMessage.text}</span>
                                 </div>
                                 <span className='sent-time'>{sentMessage.sentAt}</span>
