@@ -5,22 +5,41 @@ export function Chat() {
   return (
     <main className="chat-page">
         <div className="content">
-            <form id="messageForm">
-                <div className="dropdown">
-                    <button className="btn btn-secondary dropdown-toggle" type="button" id="recipientDropdown" 
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                        Select Recipient
-                    </button>
-                    <ul className="dropdown-menu" aria-labelledby="recipientDropdown">
-                        <li><a className="dropdown-item" href="#" data-value="John Doe">John Doe</a></li>
-                        <li><a className="dropdown-item" href="#" data-value="Jane Smith">Jane Smith</a></li>
-                        <li><a className="dropdown-item" href="#" data-value="Bob Johnson">Bob Johnson</a></li>
-                    </ul>
+            <form className="message-form">
+                <div className="message-form-header">
+                    <h3>New Message</h3>
+
+                    <span className="selected-recipient">
+                    No recipient selected
+                    </span>
                 </div>
-                <textarea id="message" name="message" rows="4" cols="50" 
-                placeholder="Type your message here..."></textarea>
-                <br />
-                <button type="button" className="btn btn-outline-primary me-2">Send</button>
+
+                <div className="message-controls">
+                    <label htmlFor="recipient">Recipient</label>
+
+                    <select>
+                        <option value="">Select a recipient</option>
+                        <option value="John Doe">John Doe</option>
+                        <option value="Jane Smith">Jane Smith</option>
+                        <option value="Bob Johnson">Bob Johnson</option>
+                    </select>
+
+                    <label htmlFor="message">Message</label>
+
+                    <div className="message-input-row">
+                    <textarea
+                        id="message"
+                        placeholder='Select a recipient first...'
+                    />
+
+                    <button
+                        type="submit"
+                        className="send-button"
+                    >
+                        Send
+                    </button>
+                    </div>
+                </div>
             </form>
 
             <div className="chat-receipts card shadow-sm">
