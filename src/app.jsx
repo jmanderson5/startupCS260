@@ -54,7 +54,7 @@ export default function App() {
                             setUserName(userName);
 
                             if (newUserName) {
-                                localStorage.setItem('userName', newUserName);
+                                localStorage.setItem('userName', UserName);
                             } else {
                                 localStorage.removeItem('userName');
                             }
