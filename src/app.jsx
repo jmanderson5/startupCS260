@@ -8,6 +8,7 @@ import { About } from './about/about';
 import { Chat } from './chat/chat';
 import { Login } from './login/login';
 import { Profile } from './profile/profile';
+import { EditProfile } from './profile/editProfile';
 import { AuthState } from  './login/authState';
 
 export default function App() {
@@ -47,6 +48,7 @@ export default function App() {
             <Route path='/' element={<About />} />
             <Route path='/chat' element={<Chat />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/profile/edit' element={<EditProfile />} />
             <Route 
                 path='/login' 
                 element={
