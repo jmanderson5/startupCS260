@@ -27,12 +27,16 @@ export default function App() {
                 <li><NavLink to="/" end className={({ isActive }) =>
                     `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
                 }>Home</NavLink></li>
-                <li><NavLink to="/chat" className={({ isActive }) =>
-                    `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
-                }>Chat</NavLink></li>
-                <li><NavLink to="/profile" className={({ isActive }) =>
-                    `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
-                }>Profile</NavLink></li>
+                {authState === AuthState.Authenticated && (
+                    <li><NavLink to="/chat" className={({ isActive }) =>
+                        `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
+                    }>Chat</NavLink></li>
+                )}    
+                {authState === AuthState.Authenticated && (
+                    <li><NavLink to="/profile" className={({ isActive }) =>
+                        `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
+                    }>Profile</NavLink></li>
+                )}    
                 <li><NavLink to="/login" className={({ isActive }) =>
                     `nav-link px-2 ${isActive ? 'link-secondary' : 'link-dark'}`
                 }>Login</NavLink></li>
