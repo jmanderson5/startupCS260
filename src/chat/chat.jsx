@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './chat.css';
 
 export function Chat() {
+    const [recipient, setRecipient] = useState('');
+    const [message, setMessage] = useState('');
+
+    function handleSubmit(event) {
+    event.preventDefault();
+  }
   return (
     <main className="chat-page">
-        <div className="content">
-            <form className="message-form">
+        <div className="content-chat">
+            <form className="message-form" onSubmit={handleSubmit}>
                 <div className="message-form-header">
                     <h3>New Message</h3>
 
                     <span className="selected-recipient">
-                    No recipient selected
+                    {recipient
+                        ? `Sending to: ${recipient}`
+                        : 'No recipient selected'}
                     </span>
                 </div>
 
                 <div className="message-controls">
                     <label htmlFor="recipient">Recipient</label>
 
-                    <select>
+                    <select id="recipient"
+                    value={recipient}
+                    onChange={(event) => setRecipient(event.target.value)}>
                         <option value="">Select a recipient</option>
                         <option value="John Doe">John Doe</option>
                         <option value="Jane Smith">Jane Smith</option>

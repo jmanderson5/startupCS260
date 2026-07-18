@@ -9,7 +9,7 @@
     padding: 0;
 }
 
-.content {
+.content-chat {
   display: flex;
   flex-direction: column;
   gap: 2em;
