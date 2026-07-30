@@ -34,3 +34,4 @@ Destructuring in JavaScript takes items in an array or object and assigns them t
 
 LocalStorage is persistent storage that is stored in a users browser even when it is closed (sessionStorage expires when the tab is shut). It cannot be accessed by other users systems accross networks. This is good for non-sensitive UI preferences (like dark mode) butt has a storage limit (usually 5MB). Never store sensitive data like passwords and user tokens in LocalStorage because of Cross-Site Scripting attacks. Data is accessible via any JavaScript running on the page.
 
+Use Node web service for debugging Startup Service.

@@ -86,7 +86,7 @@ export function Profile() {
                 <div className="card-body">
                 <h5 className="card-title">Benjamin Anderson</h5>
                 <p className="card-text">Studying Computer Science at BYU</p>
-                <a onClick={() => navigate('/profile/edit')} className="btn btn-primary" target="_blank">Edit Profile</a>
+                <a onClick={() => navigate('/profile/edit')} className="btn btn-primary">Edit Profile</a>
                 </div>
             </div>
             
