@@ -3,8 +3,6 @@ import './unauthenticated.css';
 import { useNavigate } from 'react-router-dom';
 
 export function Unauthenticated(props) {
-  const navigate = useNavigate();
-  
   const [userName, setUserName] = React.useState(props.userName);
   const [password, setPassword] = React.useState('');
   const [displayError, setDisplayError] = React.useState(null);
@@ -45,9 +43,12 @@ export function Unauthenticated(props) {
                 <label className="input-group-text" htmlFor="password">Password 🔒</label>
                 <input className="form-control" type="password" onChange={(e) => setPassword(e.target.value)} placeholder="password" />
             </div>
-
-            <button className="btn btn-primary me-2" onClick={() => loginUser()} disabled={!userName || !password}>Login</button>
-            <button className="btn btn-secondary" onClick={() => createUser()} disabled={!userName || !password}>Create</button>
+            <button className="btn btn-primary me-2" onClick={() => loginUser()} disabled={!userName || !password}>
+              Login
+            </button>
+            <button className="btn btn-secondary" onClick={() => createUser()} disabled={!userName || !password}>
+              Create
+            </button>
         </div>
     </main>
   );
