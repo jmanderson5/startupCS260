@@ -35,14 +35,8 @@ export function Profile() {
 
         setApplications(data);
         } catch (error) {
-            console.error(
-            'Unable to load applications:',
-            error
-            );
-
-            setDisplayError(
-            'Unable to load internship applications.'
-            );
+            console.error(error);
+            setDisplayError(error.message);
         }
     }
 
@@ -108,6 +102,12 @@ export function Profile() {
             
             <section id="Applications" className="Applications">
                 <h3>Applications</h3>
+
+                {displayError && (
+                    <div className="alert alert-danger" role="alert">
+                        {displayError}
+                    </div>
+                )}
 
                 <div className="accordion" id="applicationsAccordion">
                     {applications.map((application) => (
