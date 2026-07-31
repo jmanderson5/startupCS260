@@ -58,12 +58,6 @@ export default function App() {
                         onAuthChange={(userName, authState) => {
                             setAuthState(authState);
                             setUserName(userName);
-
-                            if (userName) {
-                                localStorage.setItem('userName', userName);
-                            } else {
-                                localStorage.removeItem('userName');
-                            }
                         }}
                     />
                 } 
