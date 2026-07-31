@@ -11,10 +11,6 @@ let scores = [];
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
-app.use(express.json());
-app.use(cookieParser());
-app.use(express.static('public'));
-
 // JSON body parsing using built-in middleware
 app.use(express.json());
 
