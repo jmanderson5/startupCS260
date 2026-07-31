@@ -1,0 +1,17 @@
+{
+  "name": "internship-command",
+  "version": "1.0.0",
+  "description": "A career-tracking platform designed for Computer Science students currently looking for internships and full-time employment. ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Benjamin Anderson",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.2.1",
+    "uuid": "^11.0.5"
+  }
+}
