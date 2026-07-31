@@ -133,13 +133,13 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
-- [ ] **Uses BCrypt to hash passwords** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - Created an Express backend that serves the application and handles authentication and application data.
+- [x] **Static middleware for frontend** - Configured Express to serve the built React frontend using `express.static`.
+- [ ] **Calls to third party endpoints** - Not yet implemented. Planned integration with a third-party internship or career-related API.
+- [x] **Backend service endpoints** - Implemented REST endpoints for authentication (`/api/auth/create`, `/api/auth/login`, `/api/auth/logout`) and protected application data (`/api/profile/applications`).
+- [x] **Frontend calls service endpoints** - React now authenticates through the backend and retrieves internship application data using `fetch`.
+- [x] **Supports registration, login, logout, and restricted endpoint** - Users can register, log in, log out, and access protected endpoints only when authenticated.
+- [x] **Uses BCrypt to hash passwords** - Passwords are hashed using BCrypt before being stored in memory.
 
 ## 🚀 DB deliverable
 
