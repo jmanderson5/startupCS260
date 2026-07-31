@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './profile.css';
 import { useNavigate } from 'react-router-dom';
 import { CalendarGraphic } from './calendarGraphic';
@@ -6,32 +6,48 @@ import { CalendarGraphic } from './calendarGraphic';
 export function Profile() {
     const navigate = useNavigate();
     
-    const [applications] = useState([
-    {
-      id: 1,
-      company: 'Google',
-      position: 'Software Engineer Intern',
-      status: 'Applied',
-      dateApplied: 'July 10, 2026',
-      notes: 'Waiting for a response.',
-    },
-    {
-      id: 2,
-      company: 'Amazon',
-      position: 'Software Development Engineer Intern',
-      status: 'Interview',
-      dateApplied: 'July 12, 2026',
-      notes: 'Technical interview scheduled.',
-    },
-    {
-      id: 3,
-      company: 'Microsoft',
-      position: 'Software Engineer Intern',
-      status: 'Saved',
-      dateApplied: 'Not submitted',
-      notes: 'Finish cover letter before applying.',
-    },
-  ]);
+    const [applications, setApplications] = useState([]);
+    const [displayError, setDisplayError] = useState('');
+
+    useEffect(() => {
+    async function loadApplications() {
+      try {
+        const response = await fetch(
+          '/api/profile/applications'
+        );
+
+        if (!response.ok) {
+            const errorBody = await response.json();
+
+            throw new Error(
+            errorBody.msg ||
+                `Request failed: ${response.status}`
+            );
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error(
+            'Applications response was not an array'
+            );
+        }
+
+        setApplications(data);
+        } catch (error) {
+            console.error(
+            'Unable to load applications:',
+            error
+            );
+
+            setDisplayError(
+            'Unable to load internship applications.'
+            );
+        }
+    }
+
+    loadApplications();
+    }, []);
 
   const calendar = {
     kind: 'calendar#calendar',

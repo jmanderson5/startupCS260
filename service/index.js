@@ -7,7 +7,34 @@ const app = express();
 const authCookieName = 'token';
 
 let users = [];
-let scores = [];
+const applications = [
+  {
+    id: 1,
+    company: 'Google',
+    position: 'Software Engineer Intern',
+    status: 'Applied',
+    dateApplied: 'July 10, 2026',
+    notes: 'Waiting for a response.',
+  },
+  {
+    id: 2,
+    company: 'Amazon',
+    position:
+      'Software Development Engineer Intern',
+    status: 'Interview',
+    dateApplied: 'July 12, 2026',
+    notes: 'Technical interview scheduled.',
+  },
+  {
+    id: 3,
+    company: 'Microsoft',
+    position: 'Software Engineer Intern',
+    status: 'Saved',
+    dateApplied: 'Not submitted',
+    notes:
+      'Finish cover letter before applying.',
+  },
+];
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
@@ -76,6 +103,15 @@ const verifyAuth = async (req, res, next) => {
     res.status(401).send({ msg: 'Unauthorized' });
   }
 };
+
+// Get applicatiion information
+apiRouter.get(
+  '/profile/applications',
+  verifyAuth,
+  (_req, res) => {
+    res.send(applications);
+  }
+);
 
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
