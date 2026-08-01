@@ -10,6 +10,7 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 const crypto = require('crypto');
+const multer = require('multer');
 const { google } = require('googleapis');
 
 const authCookieName = 'token';
@@ -74,6 +75,8 @@ apiRouter.get('/test', (req, res) => {
   });
 });
 
+
+
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
   if (await findUser('email', req.body.email)) {
@@ -129,6 +132,30 @@ apiRouter.get(
     res.send(applications);
   }
 );
+
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: 'public/',
+    filename: (req, file, cb) => {
+      const filetype = file.originalname.split('.').pop();
+      const id = Math.round(Math.random() * 1e9);
+      const filename = `${id}.${filetype}`;
+      cb(null, filename);
+    },
+  }),
+  limits: { fileSize: 64000 },
+});
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (req.file) {
+    res.send({
+      message: 'Uploaded succeeded',
+      file: req.file.filename,
+    });
+  } else {
+    res.status(400).send({ message: 'Upload failed' });
+  }
+});
 
 const googleCalendarScopes = [
   'https://www.googleapis.com/auth/calendar.calendars.readonly',
@@ -325,6 +352,8 @@ apiRouter.get(
   }
 );
 
+
+
 async function createUser(email, password) {
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -361,6 +390,14 @@ function createGoogleOAuthClient() {
     process.env.GOOGLE_REDIRECT_URI
   );
 }
+
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    res.status(413).send({ message: err.message });
+  } else {
+    res.status(500).send({ message: err.message });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

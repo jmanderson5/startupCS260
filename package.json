@@ -10,6 +10,7 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "express": "^5.2.1",
+    "multer": "^2.2.0",
     "react-bootstrap": "^2.10.10",
     "react-router-dom": "^7.18.1"
   }
