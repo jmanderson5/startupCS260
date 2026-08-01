@@ -9,6 +9,73 @@ export function Profile() {
     const [applications, setApplications] = useState([]);
     const [displayError, setDisplayError] = useState('');
 
+    const [googleCalendarConnected, setGoogleCalendarConnected,] = useState(false);
+    const [calendarEvents, setCalendarEvents] =useState([]);
+    const [calendarError, setCalendarError] =useState('');
+
+    useEffect(() => {
+        async function checkCalendarConnection() {
+            try {
+            const response = await fetch(
+                '/api/calendar/status',
+                {
+                credentials: 'include',
+                }
+            );
+
+            if (!response.ok) {
+                return;
+            }
+
+            const data = await response.json();
+
+            setGoogleCalendarConnected(
+                data.connected
+            );
+            } catch (error) {
+            console.error(
+                'Unable to check calendar connection:',
+                error
+            );
+            }
+        }
+
+        checkCalendarConnection();
+    }, []);
+
+    useEffect(() => {
+        if (!googleCalendarConnected) {
+            return;
+        }
+
+        async function loadCalendarEvents() {
+            try {
+            const response = await fetch(
+                '/api/calendar/events',
+                {
+                credentials: 'include',
+                }
+            );
+
+            const body = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                body.msg ||
+                    'Unable to retrieve calendar events'
+                );
+            }
+
+            setCalendarEvents(body);
+            } catch (error) {
+            console.error(error);
+            setCalendarError(error.message);
+            }
+        }
+
+        loadCalendarEvents();
+    }, [googleCalendarConnected]);
+
     useEffect(() => {
     async function loadApplications() {
       try {
@@ -89,14 +156,13 @@ export function Profile() {
   return (
     <main className="profile-page">
         <div className="content">
-            <div className="card">
-                <title>Profile Summary</title>
-                <rect width="100%" height="100%" fill="#20c997"></rect>
-
-                <div className="card-body">
-                <h5 className="card-title">Benjamin Anderson</h5>
-                <p className="card-text">Studying Computer Science at BYU</p>
-                <a onClick={() => navigate('/profile/edit')} className="btn btn-primary">Edit Profile</a>
+            <div>
+                <h2 className="card-title profile-name">Benjamin Anderson</h2>
+                <div className="card">
+                    <div className="card-body">
+                    <p className="card-text">Studying Computer Science at BYU</p>
+                    <a onClick={() => navigate('/profile/edit')} className="btn btn-primary">Edit Profile</a>
+                    </div>
                 </div>
             </div>
             
@@ -170,15 +236,89 @@ export function Profile() {
                     <button onClick={() => navigate('/chat')} type="button" 
                         className="btn btn-outline-info">Do It</button>
                 </form>
-                <section id="leetCode" className="github">
-                    <h3>LeetCode</h3>
-                    <p>View your LeetCode practice problems here</p>
-                    <a href="https://leetcode.com/problemset/" type="button" 
-                            className="btn btn-outline-info">Do It</a>
+            </div>  
+            {!googleCalendarConnected && (
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                    window.location.href =
+                        '/api/calendar/oauth/start';
+                    }}
+                >
+                    Connect Google Calendar
+                </button>
+            )}
+
+            {calendarError && (
+            <div
+                className="alert alert-danger"
+                role="alert"
+            >
+                {calendarError}
+            </div>
+            )}
+
+            {googleCalendarConnected && (
+            <section className="calendar-events">
+                <h3>Upcoming Calendar Events</h3>
+
+                {calendarEvents.length === 0 ? (
+                    <p>No upcoming events found.</p>
+                    ) : (
+                    <div className="list-group">
+                        {calendarEvents.map((event) => (
+                        <article
+                            className="list-group-item"
+                            key={event.id}
+                        >
+                            <h5>{event.title}</h5>
+
+                            <p>
+                            {formatCalendarDate(
+                                event.start
+                            )}
+                            </p>
+
+                            {event.location && (
+                            <p>
+                                Location: {event.location}
+                            </p>
+                            )}
+
+                            {event.link && (
+                            <a
+                                href={event.link}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Open in Google Calendar
+                            </a>
+                            )}
+                        </article>
+                        ))}
+                    </div>
+                    )}
                 </section>
-            </div>    
-                <CalendarGraphic calendar={calendar} />
+            )}
         </div>
     </main>
   );
+}
+
+function formatCalendarDate(value) {
+  if (!value) {
+    return 'Date unavailable';
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleString([], {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  });
 }
