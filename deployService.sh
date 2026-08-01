@@ -24,6 +24,12 @@ npm run build # build the React front end
 cp -rf dist build/public # move the React front end to the target distribution
 cp service/*.js build # move the back end service to the target distribution
 cp service/*.json build
+# Copy the production environment file
+if [[ -f service/.env ]]; then
+    cp service/.env build/.env
+else
+    printf "\nWarning: service/.env not found\n"
+fi
 
 # Step 2
 printf "\n----> Clearing out previous distribution on the target\n"
@@ -35,14 +41,19 @@ ENDSSH
 # Step 3
 printf "\n----> Copy the distribution package to the target\n"
 scp -r -i "$key" build/* ubuntu@$hostname:services/$service
+# Hidden files are not included by build/*
+if [[ -f build/.env ]]; then
+    scp -i "$key" build/.env ubuntu@$hostname:services/$service/.env
+fi
 
 # Step 4
 printf "\n----> Deploy the service on the target\n"
-ssh -i "$key" ubuntu@$hostname << ENDSSH
-bash -i
+ssh -T -i "$key" ubuntu@$hostname << ENDSSH
+export NVM_DIR="\$HOME/.nvm"
+[ -s "\$NVM_DIR/nvm.sh" ] && . "\$NVM_DIR/nvm.sh"
 cd services/${service}
 npm install
-pm2 restart ${service}
+pm2 restart ${service} --update-env
 ENDSSH
 
 # Step 5

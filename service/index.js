@@ -1,4 +1,8 @@
-require('dotenv').config();
+const path = require('path');
+
+require('dotenv').config({
+  path: path.join(__dirname, '.env'),
+});
 
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
@@ -48,7 +52,7 @@ const applications = [
   },
 ];
 
-const port = process.argv.length > 2 ? process.argv[2] : 3000;
+const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
 // JSON body parsing using built-in middleware
 app.use(express.json());

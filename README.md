@@ -135,7 +135,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 - [x] **Node.js/Express HTTP service** - Created an Express backend that serves the application and handles authentication and application data.
 - [x] **Static middleware for frontend** - Configured Express to serve the built React frontend using `express.static`.
-- [ ] **Calls to third party endpoints** - Not yet implemented. Planned integration with a third-party internship or career-related API.
+- [x] **Calls to third party endpoints** - Connect Google calendar API for a quick view of future events on users calendar.
 - [x] **Backend service endpoints** - Implemented REST endpoints for authentication (`/api/auth/create`, `/api/auth/login`, `/api/auth/logout`) and protected application data (`/api/profile/applications`).
 - [x] **Frontend calls service endpoints** - React now authenticates through the backend and retrieves internship application data using `fetch`.
 - [x] **Supports registration, login, logout, and restricted endpoint** - Users can register, log in, log out, and access protected endpoints only when authenticated.
