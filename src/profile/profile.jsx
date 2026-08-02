@@ -153,6 +153,77 @@ export function Profile() {
     autoAcceptInvitations: false,
     };
 
+    async function addApplication(application) {
+        setDisplayError('');
+
+        try {
+            const response = await fetch(
+            '/api/profile/applications',
+            {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(application),
+            }
+            );
+
+            const body = await response.json();
+
+            if (!response.ok) {
+            throw new Error(
+                body.msg || 'Unable to add application'
+            );
+            }
+
+            setApplications((current) => [
+            body,
+            ...current,
+            ]);
+        } catch (error) {
+            console.error(error);
+            setDisplayError(error.message);
+        }
+    }
+
+    async function removeApplication(applicationId) {
+        setDisplayError('');
+
+        try {
+            const response = await fetch(
+            `/api/profile/applications/${applicationId}`,
+            {
+                method: 'DELETE',
+                credentials: 'include',
+            }
+            );
+
+            if (!response.ok) {
+            let message = 'Unable to remove application';
+
+            try {
+                const body = await response.json();
+                message = body.msg || message;
+            } catch {
+                // The server may return an empty response.
+            }
+
+            throw new Error(message);
+            }
+
+            setApplications((current) =>
+            current.filter(
+                (application) =>
+                application.id !== applicationId
+            )
+            );
+        } catch (error) {
+            console.error(error);
+            setDisplayError(error.message);
+        }
+    }
+
   return (
     <main className="profile-page">
         <div className="content">
@@ -211,15 +282,22 @@ export function Profile() {
                                 View Interview Notes
                                 </a>
                             </nav>
-
-                            <p>Offer Status: {application.status}</p>
-
                             <ul>
+                                <li>Offer Status: {application.status}</li>
                                 <li>Position: {application.position}</li>
                                 <li>Applied: {application.dateApplied}</li>
-                                <li>Notes: {application.notes}</li>
                             </ul>
+                            <p>Notes: {application.notes}</p>
                             </div>
+                            <button
+                                className="btn btn-success"
+                                type="button"
+                                OnClick={() =>
+                                    removeApplication(application.id)
+                                }    
+                            >
+                                Remove Application
+                            </button>
                         </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const config = require('./dbConfig.json');
 
 const url =
@@ -73,6 +73,13 @@ async function addApplication(application) {
   };
 }
 
+async function deleteApplication(owner, applicationId) {
+  return applicationCollection.deleteOne({
+    _id: new ObjectId(applicationId),
+    owner,
+  });
+}
+
 module.exports = {
   connectToDatabase,
   getUser,
@@ -82,4 +89,5 @@ module.exports = {
   clearUserToken,
   getApplications,
   addApplication,
+  deleteApplication,
 };

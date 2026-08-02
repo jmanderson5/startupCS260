@@ -384,6 +384,30 @@ apiRouter.get(
   }
 );
 
+apiRouter.delete(
+  '/profile/applications/:id',
+  verifyAuth,
+  async (req, res, next) => {
+    try {
+      const result =
+        await database.deleteApplication(
+          req.user.email,
+          req.params.id
+        );
+
+      if (result.deletedCount === 0) {
+        return res.status(404).send({
+          msg: 'Application not found',
+        });
+      }
+
+      res.status(204).end();
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 async function findUser(field, value) {
   if (!value) {
     return null;
