@@ -153,9 +153,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **Backend listens for WebSocket connection** - The Express HTTP server is shared with a WebSocket server through `service/peerProxy.js`. The WebSocket server accepts client connections, receives chat messages, saves them to MongoDB, and broadcasts updates to connected clients.
+- [x] **Frontend makes WebSocket connection** - The frontend creates a WebSocket connection in `src/chat/chatNotifier.js`, using `ws` during local development and `wss` on the deployed HTTPS site.
+- [x] **Data sent over WebSocket connection** - The Chat page sends message objects containing the sender, recipient, message text, and timestamp through the WebSocket connection.
+- [x] **WebSocket data displayed** - Incoming WebSocket chat messages are added to React state and displayed immediately on the Chat page. Profile updates are also received through WebSocket and used to refresh the recipient list.
+- [x] **Application is fully functional** - Authentication, MongoDB persistence, internship application creation and deletion, Google Calendar integration, persistent chat history, and real-time WebSocket messaging work together in the deployed application.
