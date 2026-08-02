@@ -10,13 +10,82 @@ const client = new MongoClient(url);
 const database = client.db('internshipCommandCenter');
 
 const userCollection = database.collection('users');
-const applicationCollection =
-  database.collection('applications');
+const applicationCollection = database.collection('applications');
+
+const messageCollection = database.collection('messages');
 
 async function connectToDatabase() {
   await client.connect();
   await database.command({ ping: 1 });
   console.log('Connected to MongoDB');
+}
+
+// Message operations
+
+async function addMessage(message) {
+  const result = await messageCollection.insertOne(
+    message
+  );
+
+  return {
+    ...message,
+    id: result.insertedId.toString(),
+  };
+}
+
+async function getMessages() {
+  const messages = await messageCollection
+    .find({})
+    .sort({ sentAt: 1 })
+    .limit(100)
+    .toArray();
+
+  return messages.map((message) => ({
+    ...message,
+    id: message._id.toString(),
+  }));
+}
+
+async function getProfiles() {
+  return userCollection
+    .find(
+      {},
+      {
+        projection: {
+          _id: 0,
+          email: 1,
+          name: 1,
+          headline: 1,
+        },
+      }
+    )
+    .sort({ name: 1, email: 1 })
+    .toArray();
+}
+
+async function updateProfile(email, profile) {
+  await userCollection.updateOne(
+    { email },
+    {
+      $set: {
+        name: profile.name,
+        headline: profile.headline,
+        updatedAt: new Date(),
+      },
+    }
+  );
+
+  return userCollection.findOne(
+    { email },
+    {
+      projection: {
+        _id: 0,
+        email: 1,
+        name: 1,
+        headline: 1,
+      },
+    }
+  );
 }
 
 // User operations
