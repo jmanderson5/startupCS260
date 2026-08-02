@@ -48,9 +48,35 @@ export function EditProfile({
 
   function handleProfileSubmit(event) {
     event.preventDefault();
+    try {
+        const response = await fetch(
+          '/api/profile',
+          {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+              'Content-Type':
+                'application/json',
+            },
+            body: JSON.stringify(profileForm),
+          }
+        );
 
-    onProfileChange(profileForm);
-    navigate('/profile');
+        const body = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            body.msg ||
+              'Unable to update profile'
+          );
+        }
+
+        onProfileChange?.(body);
+        navigate('/profile');
+      } catch (error) {
+        console.error(error);
+        setDisplayError(error.message);
+      }
   }
 
   async function handleApplicationSubmit(event) {

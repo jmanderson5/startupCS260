@@ -15,14 +15,6 @@ const crypto = require('crypto');
 const multer = require('multer');
 const { google } = require('googleapis');
 const database = require('./database.js');
-const user = {
-  email,
-  password: passwordHash,
-  token: uuid.v4(),
-  name: email.split('@')[0],
-  headline: '',
-  createdAt: new Date(),
-};
 
 const authCookieName = 'token';
 
@@ -512,6 +504,9 @@ async function createUser(email, password) {
     email,
     password: passwordHash,
     token: uuid.v4(),
+    name: email.split('@')[0],
+    headline: '',
+    createdAt: new Date(),
   };
 
   await database.addUser(user);
