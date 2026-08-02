@@ -46,7 +46,7 @@ export function EditProfile({
     }));
   }
 
-  function handleProfileSubmit(event) {
+  async function handleProfileSubmit(event) {
     event.preventDefault();
     try {
         const response = await fetch(

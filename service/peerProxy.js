@@ -28,7 +28,7 @@ function peerProxy(httpServer, database) {
     });
   }   
 
-  socketServer.on('connection', (socket) => {
+  socketServer.on('connection', async (socket) => {
     socket.isAlive = true;
 
     console.log(
