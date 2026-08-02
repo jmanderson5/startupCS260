@@ -1,3 +1,5 @@
+let websocketHub;
+
 const path = require('path');
 
 require('dotenv').config({
@@ -13,6 +15,14 @@ const crypto = require('crypto');
 const multer = require('multer');
 const { google } = require('googleapis');
 const database = require('./database.js');
+const user = {
+  email,
+  password: passwordHash,
+  token: uuid.v4(),
+  name: email.split('@')[0],
+  headline: '',
+  createdAt: new Date(),
+};
 
 const authCookieName = 'token';
 
@@ -105,6 +115,72 @@ const verifyAuth = async (req, res, next) => {
     res.status(401).send({ msg: 'Unauthorized' });
   }
 };
+
+// GetProfile information for the logged-in user
+apiRouter.get(
+  '/profiles',
+  verifyAuth,
+  async (req, res, next) => {
+    try {
+      const profiles =
+        await database.getProfiles();
+
+      res.send(profiles);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// get messages for the logged-in user
+apiRouter.get(
+  '/chat/messages',
+  verifyAuth,
+  async (req, res, next) => {
+    try {
+      const messages =
+        await database.getMessages();
+
+      res.send(messages);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// UpdateProfile information for the logged-in user
+apiRouter.put(
+  '/profile',
+  verifyAuth,
+  async (req, res, next) => {
+    try {
+      const { name, headline } = req.body;
+
+      if (!name?.trim()) {
+        return res.status(400).send({
+          msg: 'Name is required',
+        });
+      }
+
+      const profile =
+        await database.updateProfile(
+          req.user.email,
+          {
+            name: name.trim(),
+            headline: headline?.trim() || '',
+          }
+        );
+
+      if (websocketHub) {
+        await websocketHub.broadcastProfiles();
+      }
+
+      res.send(profile);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 // Get applicatiion information
 apiRouter.get('/profile/applications', verifyAuth, async (req, res, next) => {

@@ -159,4 +159,8 @@ module.exports = {
   getApplications,
   addApplication,
   deleteApplication,
+  addMessage,
+  getMessages,
+  getProfiles,
+  updateProfile,
 };
