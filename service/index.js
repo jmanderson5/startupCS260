@@ -12,10 +12,9 @@ const app = express();
 const crypto = require('crypto');
 const multer = require('multer');
 const { google } = require('googleapis');
+const database = require('./database.js');
 
 const authCookieName = 'token';
-
-let users = [];
 
 // Google tokens indexed by the app user's email.
 const googleTokens = new Map();
@@ -23,35 +22,6 @@ const googleTokens = new Map();
 // Temporary OAuth states used to associate the callback
 // with the correct Internship Command Center user.
 const googleOAuthStates = new Map();
-
-const applications = [
-  {
-    id: 1,
-    company: 'Google',
-    position: 'Software Engineer Intern',
-    status: 'Applied',
-    dateApplied: 'July 10, 2026',
-    notes: 'Waiting for a response.',
-  },
-  {
-    id: 2,
-    company: 'Amazon',
-    position:
-      'Software Development Engineer Intern',
-    status: 'Interview',
-    dateApplied: 'July 12, 2026',
-    notes: 'Technical interview scheduled.',
-  },
-  {
-    id: 3,
-    company: 'Microsoft',
-    position: 'Software Engineer Intern',
-    status: 'Saved',
-    dateApplied: 'Not submitted',
-    notes:
-      'Finish cover letter before applying.',
-  },
-];
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
@@ -105,17 +75,20 @@ apiRouter.post('/auth/login', async (req, res) => {
 
 // DeleteAuth logout a user
 apiRouter.delete('/auth/logout', async (req, res) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
-  if (user) {
-    delete user.token;
-  }
+  const user = await database.getUserByToken(
+      req.cookies[authCookieName]
+    );
+    if (user) {
+      user.token = null;
+      await database.updateUser(user);
+    }
   res.clearCookie(authCookieName);
   res.status(204).end();
 });
 
 // Middleware to verify that the user is authorized to call an endpoint
 const verifyAuth = async (req, res, next) => {
-  const user = await findUser('token', req.cookies[authCookieName]);
+  const user = await database.getUserByToken(req.cookies[authCookieName]);
   if (user) {
     req.user = user
     next();
@@ -125,11 +98,65 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // Get applicatiion information
-apiRouter.get(
+apiRouter.get('/profile/applications', verifyAuth, async (_req, res, next) => {
+    try {
+      const applications =
+        await database.getApplications(
+          req.user.email
+        );
+
+      const response = applications.map(
+        (application) => ({
+          ...application,
+          id: application._id.toString(),
+        })
+      );
+
+      res.send(response);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+apiRouter.post(
   '/profile/applications',
   verifyAuth,
-  (_req, res) => {
-    res.send(applications);
+  async (req, res, next) => {
+    try {
+      const {
+        company,
+        position,
+        status,
+        dateApplied,
+        notes,
+      } = req.body;
+
+      if (!company || !position) {
+        return res.status(400).send({
+          msg: 'Company and position are required',
+        });
+      }
+
+      const application = {
+        owner: req.user.email,
+        company,
+        position,
+        status: status || 'Saved',
+        dateApplied: dateApplied || null,
+        notes: notes || '',
+        createdAt: new Date(),
+      };
+
+      const savedApplication =
+        await database.addApplication(
+          application
+        );
+
+      res.status(201).send(savedApplication);
+    } catch (error) {
+      next(error);
+    }
   }
 );
 
@@ -352,25 +379,35 @@ apiRouter.get(
   }
 );
 
+async function findUser(field, value) {
+  if (!value) {
+    return null;
+  }
 
+  if (field === 'email') {
+    return database.getUser(value);
+  }
+
+  if (field === 'token') {
+    return database.getUserByToken(value);
+  }
+
+  return null;
+}
 
 async function createUser(email, password) {
-  const passwordHash = await bcrypt.hash(password, 10);
+  const passwordHash =
+    await bcrypt.hash(password, 10);
 
   const user = {
-    email: email,
+    email,
     password: passwordHash,
     token: uuid.v4(),
   };
-  users.push(user);
+
+  await database.addUser(user);
 
   return user;
-}
-
-async function findUser(field, value) {
-  if (!value) return null;
-
-  return users.find((u) => u[field] === value);
 }
 
 // setAuthCookie in the HTTP response
