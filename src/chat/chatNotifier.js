@@ -74,5 +74,4 @@ class ChatNotifier {
   }
 }
 
-export const chatNotifier =
-  new ChatNotifier();
+export const chatNotifier = new ChatNotifier();

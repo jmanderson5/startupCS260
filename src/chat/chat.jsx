@@ -1,60 +1,67 @@
 import React, { useState, useEffect } from 'react';
 import './chat.css';
+import { chatNotifier } from './chatNotifier.js';
 
 export function Chat() {
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState(() => {
-        const savedMessages = localStorage.getItem('messages');
-        return savedMessages ? JSON.parse(savedMessages) : [];
-    });
-    // This will be replaced with WebSocket messages
-    const [messagesReceived] = useState([
-        {
-            id: 1,
-            recipient: 'John Doe',
-            text: 'Hello! How are you?',
-            sentAt: '7/18/2026, 12:52:42 PM',
-        },
-        {
-            id: 2,
-            recipient: 'Jane Smith',
-            text: 'How is the work coming on the project?',
-            sentAt: '7/18/2026, 12:54:10 PM',
-        },
-        {
-            id: 3,
-            recipient: 'Bob Johnson',
-            text: 'I have a question about the code.',
-            sentAt: '7/18/2026, 12:56:05 PM',
-        },
-    ]);
+    
+    const [messagesReceived, setMessagesReceived] = useState([]);
 
     function handleSubmit(event) {
         event.preventDefault();
 
         if (!recipient || !message.trim()) {
-            return
+            return;
         }
 
+        const sender =
+            localStorage.getItem('userName') ||
+            'Anonymous';
+
         const newMessage = {
-            id: Date.now(),
+            type: 'chat',
+            id: crypto.randomUUID(),
+            sender,
             recipient,
             text: message.trim(),
-            sentAt: new Date().toLocaleString(),
+            sentAt: new Date().toISOString(),
         };
 
-        setMessages((currentMessges) => [
-            ...currentMessges,
-            newMessage,
-        ]);
+        try {
+            chatNotifier.sendMessage(
+            newMessage
+            );
 
-        setMessage('');
+            setMessage('');
+        } catch (error) {
+            console.error(
+            'Unable to send message:',
+            error
+            );
+        }
     }
 
     useEffect(() => {
-        localStorage.setItem('messages', JSON.stringify(messages));
-    }, [messages]);
+        function handleIncomingMessage(
+            incomingMessage
+        ) {
+            setMessagesReceived((current) => [
+            ...current,
+            incomingMessage,
+            ]);
+        }
+
+        chatNotifier.addHandler(
+            handleIncomingMessage
+        );
+
+        return () => {
+            chatNotifier.removeHandler(
+            handleIncomingMessage
+            );
+        };
+    }, []);
 
     return (
     <main className="chat-page">
@@ -118,10 +125,10 @@ export function Chat() {
                         messagesReceived.map((receivedMessage) => (
                             <li key={receivedMessage.id}>
                                 <div>
-                                    <span className="sender">{receivedMessage.recipient}</span>
+                                    <span className="sender">{receivedMessage.sender}{' → '}{receivedMessage.recipient}</span>
                                     <span className="message">{receivedMessage.text}</span>
                                 </div>
-                                <span className='sent-time'>{receivedMessage.sentAt}</span>
+                                <span className='sent-time'>{formatMessageTime(receivedMessage.sentAt)}</span>
                             </li>
                         ))
                     )}
@@ -154,4 +161,18 @@ export function Chat() {
         </div>
     </main>
   );
+}
+
+function formatMessageTime(value) {
+  if (!value) {
+    return '';
+  }
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  return date.toLocaleString();
 }
