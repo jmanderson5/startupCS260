@@ -15,6 +15,9 @@
 # Node.js (if you add it later)
 node_modules/
 
+# mongoDB
+dbConfig.json
+
 # vite
 vite/
 

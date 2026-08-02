@@ -10,8 +10,25 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "express": "^5.2.1",
+    "mongodb": "^7.5.0",
     "multer": "^2.2.0",
     "react-bootstrap": "^2.10.10",
     "react-router-dom": "^7.18.1"
-  }
+  },
+  "name": "startupcs260",
+  "version": "1.0.0",
+  "description": "[My Notes](notes.md)",
+  "main": "vite.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmanderson5/startupCS260.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/jmanderson5/startupCS260/issues"
+  },
+  "homepage": "https://github.com/jmanderson5/startupCS260#readme"
 }
