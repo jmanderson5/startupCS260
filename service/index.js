@@ -45,8 +45,6 @@ apiRouter.get('/test', (req, res) => {
   });
 });
 
-
-
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
   if (await findUser('email', req.body.email)) {
