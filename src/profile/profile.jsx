@@ -292,7 +292,7 @@ export function Profile() {
                             <button
                                 className="btn btn-success"
                                 type="button"
-                                OnClick={() =>
+                                onClick={() =>
                                     removeApplication(application.id)
                                 }    
                             >
