@@ -7,7 +7,6 @@ export function Chat() {
     const [message, setMessage] = useState('');
     
     const [messagesReceived, setMessagesReceived] = useState([]);
-    const [messagesSent, setMessagesSent] = useState([]);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -17,9 +16,7 @@ export function Chat() {
         }
 
         const sender =
-            localStorage.getItem('userName') ||
-            'Anonymous';
-
+            localStorage.getItem('userName') || 'Anonymous';
         const newMessage = {
             type: 'chat',
             id: crypto.randomUUID(),
@@ -29,12 +26,9 @@ export function Chat() {
             sentAt: new Date().toISOString(),
         };
 
-        try {chatNotifier.sendMessage(newMessage);
-            setMessage((current) => [
-                ...current,
-                newMessage,
-            ]);
-
+        try {
+            chatNotifier.sendMessage(newMessage);
+            setMessage('');
         } catch (error) {
             console.error(
             'Unable to send message:',
@@ -47,9 +41,18 @@ export function Chat() {
         function handleIncomingMessage(
             incomingMessage
         ) {
+            if (incomingMessage.type !== 'chat') {
+                return;
+            }
+
+            console.log(
+                'Adding chat message to React:',
+                incomingMessage
+            );
+
             setMessagesReceived((current) => [
-            ...current,
-            incomingMessage,
+                ...current,
+                incomingMessage,
             ]);
         }
 
@@ -118,18 +121,18 @@ export function Chat() {
                 </div>
 
                 <ul className="receipts-list">
-                    {messagesSent.length === 0 ? (
+                    {messagesReceived.length === 0 ? (
                         <li className='message'>
                             No message history
                         </li>
                     ) : (
-                        messagesSent.map((sentMessage) => (
-                            <li key={sentMessage.id}>
+                        messagesReceived.map((receivedMessage) => (
+                            <li key={receivedMessage.id}>
                                 <div>
-                                    <span className="sender">{sentMessage.sender}{' → '}{sentMessage.recipient}</span>
-                                    <span className="message">{sentMessage.text}</span>
+                                    <span className="sender">{receivedMessage.sender}{' → '}{receivedMessage.recipient}</span>
+                                    <span className="message">{receivedMessage.text}</span>
                                 </div>
-                                <span className='sent-time'>{formatMessageTime(sentMessage.sentAt)}</span>
+                                <span className='sent-time'>{formatMessageTime(receivedMessage.sentAt)}</span>
                             </li>
                         ))
                     )}

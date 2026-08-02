@@ -2,14 +2,19 @@ class ChatNotifier {
   constructor() {
     this.handlers = [];
 
-    const protocol =
-      window.location.protocol === 'http:'
-        ? 'ws'
-        : 'wss';
+    const isLocal =
+    window.location.hostname === 'localhost';
 
-    this.socket = new WebSocket(
-      `${protocol}://${window.location.host}`
+    const websocketUrl = isLocal
+    ? 'ws://localhost:4000'
+    : `wss://${window.location.host}`;
+
+    console.log(
+        'Connecting WebSocket to:',
+        websocketUrl
     );
+
+    this.socket = new WebSocket(websocketUrl);
 
     this.socket.onopen = () => {
       console.log(
