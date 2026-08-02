@@ -1,18 +1,14 @@
-const {
-  MongoClient,
-  ObjectId,
-} = require('mongodb');
-
+const { MongoClient } = require('mongodb');
 const config = require('./dbConfig.json');
 
-const connectionString =
+const url =
   `mongodb+srv://${encodeURIComponent(config.userName)}` +
   `:${encodeURIComponent(config.password)}` +
   `@${config.hostname}`;
 
-const client = new MongoClient(connectionString);
-
+const client = new MongoClient(url);
 const database = client.db('internshipCommandCenter');
+
 const userCollection = database.collection('users');
 const applicationCollection =
   database.collection('applications');
@@ -20,11 +16,10 @@ const applicationCollection =
 async function connectToDatabase() {
   await client.connect();
   await database.command({ ping: 1 });
-
   console.log('Connected to MongoDB');
 }
 
-// User functions
+// User operations
 
 function getUser(email) {
   return userCollection.findOne({ email });
@@ -43,25 +38,23 @@ async function addUser(user) {
   return user;
 }
 
-async function updateUserToken(email, token) {
+async function updateUser(user) {
   await userCollection.updateOne(
-    { email },
-    {
-      $set: { token },
-    }
+    { email: user.email },
+    { $set: user }
   );
+
+  return user;
 }
 
 async function clearUserToken(token) {
   await userCollection.updateOne(
     { token },
-    {
-      $unset: { token: '' },
-    }
+    { $unset: { token: '' } }
   );
 }
 
-// Application functions
+// Application operations
 
 function getApplications(owner) {
   return applicationCollection
@@ -72,9 +65,7 @@ function getApplications(owner) {
 
 async function addApplication(application) {
   const result =
-    await applicationCollection.insertOne(
-      application
-    );
+    await applicationCollection.insertOne(application);
 
   return {
     ...application,
@@ -82,41 +73,13 @@ async function addApplication(application) {
   };
 }
 
-async function updateApplication(
-  owner,
-  applicationId,
-  updates
-) {
-  return applicationCollection.updateOne(
-    {
-      _id: new ObjectId(applicationId),
-      owner,
-    },
-    {
-      $set: updates,
-    }
-  );
-}
-
-async function deleteApplication(
-  owner,
-  applicationId
-) {
-  return applicationCollection.deleteOne({
-    _id: new ObjectId(applicationId),
-    owner,
-  });
-}
-
 module.exports = {
   connectToDatabase,
   getUser,
   getUserByToken,
   addUser,
-  updateUserToken,
+  updateUser,
   clearUserToken,
   getApplications,
   addApplication,
-  updateApplication,
-  deleteApplication,
 };

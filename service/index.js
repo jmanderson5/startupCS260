@@ -63,8 +63,11 @@ apiRouter.post('/auth/login', async (req, res) => {
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.token = uuid.v4();
+      await database.updateUser(user);
       setAuthCookie(res, user.token);
-      res.send({ email: user.email });
+      res.send({
+        email: user.email,
+      });
       return;
     }
   }
@@ -72,16 +75,20 @@ apiRouter.post('/auth/login', async (req, res) => {
 });
 
 // DeleteAuth logout a user
-apiRouter.delete('/auth/logout', async (req, res) => {
-  const user = await database.getUserByToken(
-      req.cookies[authCookieName]
-    );
-    if (user) {
-      user.token = null;
-      await database.updateUser(user);
+apiRouter.delete('/auth/logout', async (req, res, next) => {
+  try {
+    const token =
+      req.cookies[authCookieName];
+
+    if (token) {
+      await database.clearUserToken(token);
     }
-  res.clearCookie(authCookieName);
-  res.status(204).end();
+
+    res.clearCookie(authCookieName);
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Middleware to verify that the user is authorized to call an endpoint
@@ -96,7 +103,7 @@ const verifyAuth = async (req, res, next) => {
 };
 
 // Get applicatiion information
-apiRouter.get('/profile/applications', verifyAuth, async (_req, res, next) => {
+apiRouter.get('/profile/applications', verifyAuth, async (req, res, next) => {
     try {
       const applications =
         await database.getApplications(
@@ -434,6 +441,21 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+async function startServer() {
+  try {
+    await database.connectToDatabase();
+
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}`);
+    });
+  } catch (error) {
+    console.error(
+      'Unable to start service:',
+      error
+    );
+
+    process.exit(1);
+  }
+}
+
+startServer();
