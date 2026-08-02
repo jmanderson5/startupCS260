@@ -557,7 +557,10 @@ async function startServer() {
         );
       }
     );
-    peerProxy(httpServer);
+    websocketHub = peerProxy(
+      httpServer,
+      database
+    );
   } catch (error) {
     console.error(
       'Unable to start service:',

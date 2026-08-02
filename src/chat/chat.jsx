@@ -5,8 +5,9 @@ import { chatNotifier } from './chatNotifier.js';
 export function Chat() {
     const [recipient, setRecipient] = useState('');
     const [message, setMessage] = useState('');
-    
-    const [messagesReceived, setMessagesReceived] = useState([]);
+    const [profiles, setProfiles] = useState([]);
+    const [messages, setMessages] = useState([]);
+    const currentUser = localStorage.getItem('userName');
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -38,34 +39,68 @@ export function Chat() {
     }
 
     useEffect(() => {
-        function handleIncomingMessage(
-            incomingMessage
-        ) {
-            if (incomingMessage.type !== 'chat') {
-                return;
-            }
-
-            console.log(
-                'Adding chat message to React:',
-                incomingMessage
+        async function loadMessages() {
+            try {
+            const response = await fetch(
+                '/api/chat/messages',
+                {
+                credentials: 'include',
+                }
             );
 
-            setMessagesReceived((current) => [
-                ...current,
-                incomingMessage,
-            ]);
+            const body = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                body.msg ||
+                    'Unable to load chat history'
+                );
+            }
+
+            setMessages(body);
+            } catch (error) {
+            console.error(error);
+            }
+        }
+
+        loadMessages();
+    }, []);
+
+    useEffect(() => {
+        function handleIncomingEvent(event) {
+            if (event.type === 'chat') {
+            setMessages((current) => {
+                const alreadyExists =
+                current.some(
+                    (message) =>
+                    message.id === event.id
+                );
+
+                if (alreadyExists) {
+                return current;
+                }
+
+                return [...current, event];
+            });
+
+            return;
+            }
+
+            if (event.type === 'profiles') {
+            setProfiles(event.profiles || []);
+            }
         }
 
         chatNotifier.addHandler(
-            handleIncomingMessage
+            handleIncomingEvent
         );
 
         return () => {
             chatNotifier.removeHandler(
-            handleIncomingMessage
+            handleIncomingEvent
             );
         };
-    }, []);
+    }, []);                 
 
     return (
     <main className="chat-page">
@@ -89,10 +124,14 @@ export function Chat() {
                         value={recipient}
                         onChange={(event) => setRecipient(event.target.value)}
                     >
-                        <option value="">Select a recipient</option>
-                        <option value="John Doe">John Doe</option>
-                        <option value="Jane Smith">Jane Smith</option>
-                        <option value="Bob Johnson">Bob Johnson</option>
+                        {profiles.filter((profile) => profile.email !== currentUser).map((profile) => (
+                            <option
+                                key={profile.email}
+                                value={profile.email}
+                            >
+                                {profile.name || profile.email}
+                            </option>
+                        ))}
                     </select>
 
                     <label htmlFor="message">Message</label>
@@ -121,18 +160,18 @@ export function Chat() {
                 </div>
 
                 <ul className="receipts-list">
-                    {messagesReceived.length === 0 ? (
+                    {messages.length === 0 ? (
                         <li className='message'>
                             No message history
                         </li>
                     ) : (
-                        messagesReceived.map((receivedMessage) => (
-                            <li key={receivedMessage.id}>
+                        messages.map((message) => (
+                            <li key={message.id}>
                                 <div>
-                                    <span className="sender">{receivedMessage.sender}{' → '}{receivedMessage.recipient}</span>
-                                    <span className="message">{receivedMessage.text}</span>
+                                    <span className="sender">{message.sender}{' → '}{message.recipient}</span>
+                                    <span className="message">{message.text}</span>
                                 </div>
-                                <span className='sent-time'>{formatMessageTime(receivedMessage.sentAt)}</span>
+                                <span className='sent-time'>{formatMessageTime(message.sentAt)}</span>
                             </li>
                         ))
                     )}
