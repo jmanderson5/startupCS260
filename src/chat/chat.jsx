@@ -7,6 +7,7 @@ export function Chat() {
     const [message, setMessage] = useState('');
     
     const [messagesReceived, setMessagesReceived] = useState([]);
+    const [messagesSent, setMessagesSent] = useState([]);
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -28,12 +29,12 @@ export function Chat() {
             sentAt: new Date().toISOString(),
         };
 
-        try {
-            chatNotifier.sendMessage(
-            newMessage
-            );
+        try {chatNotifier.sendMessage(newMessage);
+            setMessage((current) => [
+                ...current,
+                newMessage,
+            ]);
 
-            setMessage('');
         } catch (error) {
             console.error(
             'Unable to send message:',
@@ -113,46 +114,22 @@ export function Chat() {
 
             <div className="chat-receipts card shadow-sm">
                 <div className="card-header">
-                    <h4 className="mb-0">Messages Received</h4>
+                    <h4 className="mb-0">Messages</h4>
                 </div>
 
                 <ul className="receipts-list">
-                    {messagesReceived.length === 0 ? (
+                    {messagesSent.length === 0 ? (
                         <li className='message'>
                             No message history
                         </li>
                     ) : (
-                        messagesReceived.map((receivedMessage) => (
-                            <li key={receivedMessage.id}>
-                                <div>
-                                    <span className="sender">{receivedMessage.sender}{' → '}{receivedMessage.recipient}</span>
-                                    <span className="message">{receivedMessage.text}</span>
-                                </div>
-                                <span className='sent-time'>{formatMessageTime(receivedMessage.sentAt)}</span>
-                            </li>
-                        ))
-                    )}
-                </ul>
-            </div>
-
-            <div className="chat-receipts card shadow-sm">
-                <div className="card-header">
-                    <h4 className="mb-0">Sent Messages</h4>
-                </div>
-
-                <ul className="receipts-list">
-                    {messages.length === 0 ? (
-                        <li className='message'>
-                            No message history
-                        </li>
-                    ) : (
-                        messages.map((sentMessage) => (
+                        messagesSent.map((sentMessage) => (
                             <li key={sentMessage.id}>
                                 <div>
-                                    <span className="sender">To: {sentMessage.recipient}</span>
+                                    <span className="sender">{sentMessage.sender}{' → '}{sentMessage.recipient}</span>
                                     <span className="message">{sentMessage.text}</span>
                                 </div>
-                                <span className='sent-time'>{sentMessage.sentAt}</span>
+                                <span className='sent-time'>{formatMessageTime(sentMessage.sentAt)}</span>
                             </li>
                         ))
                     )}
