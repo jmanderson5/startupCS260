@@ -25,6 +25,10 @@ const googleOAuthStates = new Map();
 
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
 
+const {
+  peerProxy,
+} = require('./peerProxy.js');
+
 // JSON body parsing using built-in middleware
 app.use(express.json());
 
@@ -469,9 +473,15 @@ async function startServer() {
   try {
     await database.connectToDatabase();
 
-    app.listen(port, () => {
-      console.log(`Listening on port ${port}`);
-    });
+    const httpServer = app.listen(
+      port,
+      () => {
+        console.log(
+          `Listening on port ${port}`
+        );
+      }
+    );
+    peerProxy(httpServer);
   } catch (error) {
     console.error(
       'Unable to start service:',
