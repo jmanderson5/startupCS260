@@ -39,6 +39,39 @@ export function Chat() {
     }
 
     useEffect(() => {
+        async function loadProfiles() {
+            try {
+            const response = await fetch('/api/profiles', {
+                credentials: 'include',
+            });
+
+            const body = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                body.msg || 'Unable to load profiles'
+                );
+            }
+
+            if (!Array.isArray(body)) {
+                throw new Error(
+                'Profiles response was not an array'
+                );
+            }
+
+            setProfiles(body);
+            } catch (error) {
+            console.error(
+                'Unable to load profiles:',
+                error
+            );
+            }
+        }
+
+        loadProfiles();
+    }, []); 
+
+    useEffect(() => {
         async function loadMessages() {
             try {
             const response = await fetch(
@@ -124,6 +157,7 @@ export function Chat() {
                         value={recipient}
                         onChange={(event) => setRecipient(event.target.value)}
                     >
+                        <option value="">Select a recipient</option>
                         {profiles.filter((profile) => profile.email !== currentUser).map((profile) => (
                             <option
                                 key={profile.email}
