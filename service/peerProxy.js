@@ -3,10 +3,30 @@ const {
   WebSocket,
 } = require('ws');
 
-function peerProxy(httpServer) {
+function peerProxy(httpServer, database) {
   const socketServer = new WebSocketServer({
     server: httpServer,
   });
+
+  function broadcast(message) {
+    const outgoing = JSON.stringify(message);
+
+    socketServer.clients.forEach((client) => {
+        if (
+        client.readyState === WebSocket.OPEN
+        ) {
+        client.send(outgoing);
+        }
+    });
+  }
+
+  async function broadcastProfiles() {
+    const profiles = await database.getProfiles();
+    broadcast({
+        type: 'profiles',
+        profiles,
+    });
+  }   
 
   socketServer.on('connection', (socket) => {
     socket.isAlive = true;
@@ -15,36 +35,61 @@ function peerProxy(httpServer) {
       'WebSocket client connected'
     );
 
-    socket.on('message', (data) => {
-      try {
-        const message = JSON.parse(
-          data.toString()
-        );
+    try {
+      const profiles =
+        await database.getProfiles();
 
-        const outgoingMessage = JSON.stringify({
-          ...message,
-          id: message.id || Date.now(),
-          sentAt:
-            message.sentAt ||
-            new Date().toISOString(),
-        });
+      socket.send(
+        JSON.stringify({
+          type: 'profiles',
+          profiles,
+        })
+      );
+    } catch (error) {
+      console.error(
+        'Unable to load profiles:',
+        error
+      );
+    }
 
-        socketServer.clients.forEach(
-          (client) => {
-            if (
-              client.readyState ===
-              WebSocket.OPEN
-            ) {
-              client.send(outgoingMessage);
+    socket.on('message', async (data) => {
+        try {
+            const incoming =
+            JSON.parse(data.toString());
+
+            if (incoming.type !== 'chat') {
+            return;
             }
-          }
-        );
-      } catch (error) {
-        console.error(
-          'Invalid WebSocket message:',
-          error
-        );
-      }
+
+            const savedMessage =
+            await database.addMessage({
+                type: 'chat',
+                sender: incoming.sender,
+                recipient: incoming.recipient,
+                text: incoming.text,
+                sentAt: new Date(),
+            });
+
+            broadcast({
+            type: 'chat',
+            ...savedMessage,
+            });
+        } catch (error) {
+            console.error(
+            'Unable to process WebSocket message:',
+            error
+            );
+
+            if (socket.readyState === WebSocket.OPEN) {
+            socket.send(
+                JSON.stringify({
+                type: 'error',
+                message:
+                    'Unable to save chat message',
+                })
+            );
+            }
+        }
     });
 
     socket.on('pong', () => {
@@ -81,6 +126,10 @@ function peerProxy(httpServer) {
   httpServer.on('close', () => {
     clearInterval(interval);
   });
+
+  return {
+    broadcastProfiles,
+  };
 }
 
 module.exports = {
